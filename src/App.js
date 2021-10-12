@@ -31,6 +31,7 @@ const App = () => {
     firstPay: "",
     products: [],
     agreement: false,
+    allegroBtn: "",
   });
 
   const [badValidate, setBadValidate] = useState({
@@ -53,6 +54,7 @@ const App = () => {
     firstPay: "",
     products: [],
     agreement: false,
+    allegroBtn: "",
   });
 
   const [showForm, setShowForm] = useState(true);
@@ -102,6 +104,12 @@ const App = () => {
     if (state.worker === "") validate.worker = true;
 
     if (state.placeBuy === "") validate.placeBuy = true;
+
+    if(state.placeBuy === "Allegro (handto / SMA-Dimplex)" && state.allegroBtn === ""){
+      validate.allegroBtn = true;
+    } else {
+      validate.allegroBtn = ""
+    }
 
     if (state.docNumber === "") validate.docNumber = true;
 
@@ -189,7 +197,8 @@ const App = () => {
       !validate.docNumber &&
       !validate.reason &&
       !validate.status &&
-      !validate.agreement
+      !validate.agreement &&
+      (state.placeBuy === "Allegro (handto / SMA-Dimplex)" && state.allegroBtn)
     ) {
       const productObjValidated = state.products.map((prod) => {
         if (prod.producer && prod.typeProduct && prod.quantity) {
@@ -240,19 +249,26 @@ const App = () => {
   };
 
   const placeBuy = [
-    "Emultimax.pl",
-    "Allegro",
+    "Sklep internetowy (www.emultimax.pl)",
+    "Allegro (handto / SMA-Dimplex)",
     "Salon Sprzedaży Warszawa",
     "Salon Sprzedaży Kraków",
     "Salon Sprzedaży Rzeszów",
     "Salon Sprzedaży Zamość",
-    "Punkty Sprzedaży Gdańsk",
+    "Punkt Sprzedaży Gdańsk",
     "Punkt Sprzedaży Poznań",
+    "Telefonicznie"
   ];
 
   const statusOptions = [
     "Produkt przekazany do weryfikacji do Działu Obsługi Zwrotów i Reklamacji",
     "Zwrot zaakceptowany",
+  ];
+
+  const allegroOptions = [
+    `klient kliknął w Allegro "Zwróć towar"`,
+    `klient obiecał, że po powrocie do domu kliknie w Allegro "Zwróć towar"`,
+    `klient zdecydowanie odmówił kliknięcia w Allegro "Zwróć towar"`,
   ];
 
   const packageCompleteOptions = ["Kompletny", "Nie kompletny"];
@@ -270,22 +286,22 @@ const App = () => {
   ];
 
   const producer = [
+    "Blaupunkt", 
+    "Climative", 
+    "Danfoss", 
+    "Devi", 
+    "Digitime", 
+    "Dimplex", 
+    "Ebeco", 
+    "Eberle", 
+    "Emko", 
+    "Esco", 
+    "Nexans", 
+    "Rotenso", 
+    "Sonniger", 
+    "Thermoval", 
+    "Vaco", 
     "Warmtec",
-    "Dimplex",
-    "Thermoval",
-    "Blaupunkt",
-    "Sonniger",
-    "Climative",
-    "EBERLE",
-    "EBECO",
-    "EMKO",
-    "ESCO",
-    "Danfoss",
-    "Devi",
-    "DigiTime",
-    "Nexans",
-    "Rotenso",
-    "VACO",
     "Inny",
   ];
 
@@ -405,6 +421,11 @@ const App = () => {
       <h4>Formularz zwrotu (stacjonarny):</h4>
       <b>Osoba przyjmująca zwrot:</b> ${obj.worker} <br/>
       <b>Miejsce zakupu:</b> ${obj.placeBuy} <br/>
+      ${
+        obj.placeBuy === "Allegro (handto / SMA-Dimplex)"
+          ? `<b>CZy klient kliknął w Allegro "Zwróć towar":</b> ${obj.allegroBtn} <br/>`
+          : ""
+      }
       <b>Numer zamówienia lub numer faktury:</b> ${obj.docNumber} <br/>
       <br/>
       ${products}
@@ -520,11 +541,21 @@ const App = () => {
             errorMsg={"Wybierz miejsca zakupu"}
           />
 
-          {state.placeBuy === "Allegro" ? (
-            <div className="return-form__info-warning">
-              Pamiętaj aby powiedzieć klientowi, że zwrotu musi dokonać również
-              poprzez link w serwisie allegro
-            </div>
+          {state.placeBuy === `Allegro (handto / SMA-Dimplex)` ? (
+            <>
+              <div className="return-form__info-warning">
+                Informacja dla klienta: Jeżeli dokonał/a Pani/Pan zakupu za pośrednictwem serwisu Allegro proszę zalogować się do swojego konta i w zakładce "Moje Zakupy" &gt; SZCZEGÓŁY ZAKUPU kliknąć "Zwróć towar"
+              </div>
+              <InputRadio
+                value={state.allegroBtn}
+                name={"allegroBtn"}
+                labelName={`Czy klient klinkął w Allegro "Zwróć towar"?`}
+                handleInput={handleInput}
+                validation={badValidate.allegroBtn}
+                options={allegroOptions}
+                errorMsg={`Zaznacz czy klient klinkął "Zwróć towar"`}
+              />
+            </>
           ) : null}
 
           <Input
@@ -689,11 +720,11 @@ const App = () => {
                   <InputRadio
                     value={state.firstPay}
                     name={"firstPay"}
-                    labelName="Wcześniejsza forma płatności"
+                    labelName="Wcześniejsza metoda płatności"
                     handleInput={handleInput}
                     validation={badValidate.firstPay}
                     options={firstPayOptions}
-                    errorMsg={"Podaj wcześniejszą formę płatności"}
+                    errorMsg={"Podaj wcześniejszą metodę płatności"}
                   />
 
                   {state.firstPay === "Przelew bankowy" ? (
