@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/formularz-zwrotow-pos/static/css/main.ee729484.chunk.css",
-    "main.js": "/formularz-zwrotow-pos/static/js/main.f764c87e.chunk.js",
-    "main.js.map": "/formularz-zwrotow-pos/static/js/main.f764c87e.chunk.js.map",
+    "main.js": "/formularz-zwrotow-pos/static/js/main.06f50d52.chunk.js",
+    "main.js.map": "/formularz-zwrotow-pos/static/js/main.06f50d52.chunk.js.map",
     "runtime-main.js": "/formularz-zwrotow-pos/static/js/runtime-main.3bf2c2d2.js",
     "runtime-main.js.map": "/formularz-zwrotow-pos/static/js/runtime-main.3bf2c2d2.js.map",
     "static/js/2.6727e721.chunk.js": "/formularz-zwrotow-pos/static/js/2.6727e721.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.3bf2c2d2.js",
     "static/js/2.6727e721.chunk.js",
     "static/css/main.ee729484.chunk.css",
-    "static/js/main.f764c87e.chunk.js"
+    "static/js/main.06f50d52.chunk.js"
   ]
 }
