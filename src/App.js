@@ -198,7 +198,6 @@ const App = () => {
       !validate.reason &&
       !validate.status &&
       !validate.agreement &&
-      (state.placeBuy === "Allegro (handto / SMA-Dimplex)" && state.allegroBtn)
     ) {
       const productObjValidated = state.products.map((prod) => {
         if (prod.producer && prod.typeProduct && prod.quantity) {
