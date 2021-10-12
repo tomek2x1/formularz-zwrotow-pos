@@ -197,7 +197,7 @@ const App = () => {
       !validate.docNumber &&
       !validate.reason &&
       !validate.status &&
-      !validate.agreement &&
+      !validate.agreement
     ) {
       const productObjValidated = state.products.map((prod) => {
         if (prod.producer && prod.typeProduct && prod.quantity) {
